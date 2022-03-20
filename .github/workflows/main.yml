@@ -3,6 +3,8 @@ name: Docker
 on:
   push:
     tags: ['v*.*.*']
+  pull_request:
+    tags: ['v*.*.*']
 
 env:
   IMAGE_NAME: test
