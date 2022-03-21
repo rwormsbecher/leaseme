@@ -26,6 +26,10 @@ COPY package*.json ./
 
 RUN npm install --only=production
 
+RUN --mount=type=secret,id=DATABASE_CONNECTION_STRING \
+   export API_ENDPOINT=$(cat /run/secrets/DATABASE_CONNECTION_STRING) && \
+   yarn gen
+
 COPY . .
 
 COPY --from=development /usr/src/app/dist ./dist
