@@ -40,5 +40,7 @@ jobs:
           build-args: |
             version=${{ steps.date.outputs.date }}
           tags: ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME }}:${{ steps.date.outputs.date }}
+          secrets: |
+             "DATABASE_CONNECTION_STRING=${{ secrets.DATABASE_CONNECTION_STRING }}"
           
        
