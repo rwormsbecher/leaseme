@@ -8,7 +8,7 @@ on:
     branches: [main]
 
 env:
-  IMAGE_NAME: test
+  IMAGE_NAME: leaseme
 
 jobs:
   build:
@@ -18,16 +18,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        
-        
-      - name: Azure Login
-        uses: Azure/login@v1.4.2
-        with:
-          # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-          environment: 'AzureStack'
-        
-
 
       # create the date suffix ":yyyyMMddhhmm"
       - name: Get current date
@@ -49,19 +39,4 @@ jobs:
             version=${{ steps.date.outputs.date }}
           tags: ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME }}:${{ steps.date.outputs.date }}
           
-          
-      - name: Azure WebApp
-        uses: Azure/webapps-deploy@v2
-        with:
-          # Name of the Azure Web App
-          app-name: leaseme-api
-          # Enter an existing Slot other than the Production slot
-          # slot-name: # optional, default is production
-          # Applies to Web App Containers only: Specify the fully qualified container image(s) name. For example, 'myregistry.azurecr.io/nginx:latest' or 'python:3.7.2-alpine/'. For multi-container scenario multiple container image names can be provided (multi-line separated)
-          images: leasemeregistry.azurecr.io/test:202203202347
-          # Applies to Web App Containers only: Path of the Docker-Compose file. Should be a fully qualified path or relative to the default working directory. Required for multi-container scenario
-          #configuration-file: # optional
-          # Enter the start up command. For ex. dotnet run or dotnet run
-          #startup-command: # optional
-
-
+       
