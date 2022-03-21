@@ -28,7 +28,7 @@ RUN npm install --only=production
 
 RUN --mount=type=secret,id=DATABASE_CONNECTION_STRING \
    export DATABASE_CONNECTION_STRING=$(cat /run/secrets/DATABASE_CONNECTION_STRING) && \
-   echo $DATABASE_CONNECTION_STRING
+   yarn gen
 
 COPY . .
 
