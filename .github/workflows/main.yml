@@ -9,6 +9,8 @@ on:
 
 env:
   IMAGE_NAME: leaseme
+  DATABASE_CONNECTION_STRING: ${{ secrets.DATABASE_CONNECTION_STRING}}
+  
 
 jobs:
   build:
