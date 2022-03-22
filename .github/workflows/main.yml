@@ -10,20 +10,18 @@ on:
 env:
   IMAGE_NAME: leaseme
   DATABASE_CONNECTION_STRING: ${{ secrets.DATABASE_CONNECTION_STRING}}
-  
 
 jobs:
   build:
     name: Build container image
     runs-on: ubuntu-latest
-    env: 
+    env:
       DATABASE_CONNECTION_STRING: ${{ secrets.DATABASE_CONNECTION_STRING }}
-      
 
     steps:
       - name: Install Yarn
         run: npm install -g yarn
-    
+
       - name: Checkout repository
         uses: actions/checkout@v2
 
@@ -46,7 +44,5 @@ jobs:
           build-args: |
             version=${{ steps.date.outputs.date }}
           tags: ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME }}:${{ steps.date.outputs.date }}
-          secrets: |
-             "DATABASE_CONNECTION_STRING=${{ secrets.DATABASE_CONNECTION_STRING }}"
-          
-       
+          # secrets: |
+          #    "DATABASE_CONNECTION_STRING=${{ secrets.DATABASE_CONNECTION_STRING }}"
